@@ -1,0 +1,28 @@
+calculateLeistTimes(nodes, projectCompletionTime, finishPoint); ifadesi, calculateLeistTimes fonksiyonunu çağırarak düğümlerin en erken sürelerini hesaplar.
+
+Her bir düğümün aşağıdaki ayrıntıları ekrana yazdırılır:
+
+Düğümün adı (node->name)
+Düğümün süresi (node->duration)
+Düğüme bağlı olduğu düğümler (node->allegiances)
+Düğümün bağlı olduğu düğümler (node->connectedTo)
+Düğümün en erken başlama süresi (node->earliestStart)
+Düğümün en erken bitiş süresi (node->earliestFinish)
+Düğümün en geç başlama süresi (node->leastStart)
+Düğümün en geç bitiş süresi (node->leastFinish)
+Düğümün gevşekliği (node->slack)
+cout << "Project Completion Time: " << projectCompletionTime << endl; ifadesi, proje tamamlama süresini ekrana yazdırır.
+
+cout << "Starting Points: "; ifadesi, başlangıç noktalarının başlığını ekrana yazdırır.
+
+for (Node* start : startingPoint) döngüsü, başlangıç noktalarını ekrana yazdırmak için kullanılır. Her bir başlangıç noktasının adı (start->name) yazdırılır.
+
+cout << "Finish Points: "; ifadesi, bitiş noktalarının başlığını ekrana yazdırır.
+
+for (Node* finish : finishPoint) döngüsü, bitiş noktalarını ekrana yazdırmak için kullanılır. Her bir bitiş noktasının adı (finish->name) yazdırılır.
+
+printZeroSlackPath(nodes); ifadesi, printZeroSlackPath fonksiyonunu çağırarak sıfır gevşeklik süresine sahip yolları ekrana yazdırır.
+
+for (Node* node : nodes) döngüsü, her bir düğümü temizlemek için kullanılır. Her düğüm bellekten serbest bırakılır (delete node).
+
+Bu şekilde, düğümlerin ayrıntıları, proje tamamlama süresi, başlangıç ve bitiş noktaları, sıfır gevşeklik süresine sahip yollar ekrana yazdırılır ve bellek temizlenir.

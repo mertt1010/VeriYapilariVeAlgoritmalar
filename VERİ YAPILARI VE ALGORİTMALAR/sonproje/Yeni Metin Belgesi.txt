@@ -1,0 +1,36 @@
+calculateEarliestTimes Fonksiyonu
+
+Bu fonksiyonu,  projemiz için düğümlerin en erken başlama, bitiş ve gecikme sürelerini hesaplamak için kullanıyoruz. Aşağıda adım adım size bu fonksiyonun nasıl işlediğini anlatacağız:
+
+1. while (islemdekiler.size() < nodes.size()) döngüsü, işlemdeki düğüm sayısı toplam düğüm sayısına eşit olana kadar devam eder. Bu döngü, tüm düğümler işlenene kadar çalışır.
+2. for(Node* node : islemdekiler) döngüsü, mevcut işlemdeki düğümleri teker teker işlemek için kullanılır. Bu döngü, işlemdeki her düğümü döngü içinde node olarak temsil eden bir işlem yapar.
+3. node->leastFinish ve node->leastStart değerleri INT_MAX ile başlatılır. Bu, düğümün başlangıçta en büyük olası değerlere sahip olduğunu gösterir.
+4. Eğer node'un connectedTo listesi boşsa, bu düğüm proje tamamlanma süresine eşit kabul edilir. Yani, node->leastFinish değişkeni projectCompletionTime değerine atanır ve node->leastStart değişkeni, düğümün süresini çıkartarak hesaplanır. Ayrıca, eğer node'un allegiances listesi boş değilse, bu listeye ait düğümler islemdekiler listesine eklenir.
+5. Eğer node'un connectedTo listesi boş değilse, bu durumda node düğümüne bağlı olan diğer düğümler üzerinde işlem yapılır. Her bir bağlı düğüm için aşağıdaki adımlar gerçekleştirilir:
+
+   a. Eğer node'un leastFinish değeri, bağlı düğümün leastStart değerinden büyükse, node->leastFinish değeri n->leastStart değerine atanır. Bu, bağlı düğümün bitiş süresini gösterir.
+   
+   b. node->leastStart değeri, node->leastFinish değerinden düğümün süresini çıkartarak hesaplanır.
+   
+   c. Eğer node'un allegiance listesi boş değilse, bu listeye ait düğümler islemdekiler listesine eklenir.
+
+6. İç döngü tamamlandığında, dışarıdaki döngü tekrar başa döner ve yeni bir düğüm işlenir. Bu süreç, islemdekiler listesinin tüm düğümleri içerecek şekilde devam eder.
+7. İşlem tamamlandığında, islemdekiler listesindeki tüm düğümlerin adlarını ekrana yazdırılır.
+8. Daha sonra, islemdekiler listesindeki her bir düğüm için aşağıdaki adımlar gerçekleştirilir:
+
+   a. node->leastFinish ve node->leastStart değerleri tekrar INT_MAX ile başlatılır.
+   
+   b. Eğer node'un connectedTo listesi boşsa, bu düğüm proje tamamlanma süresine eşit kabul edilir. node->leastFinish değişkeni projectCompletionTime değerine atanır ve node->leastStart değişkeni, düğümün süresini çıkartarak hesaplanır. Ayrıca, eğer node'un allegiances listesi boş değilse, bu listeye ait düğümler islemdekiler listesine eklenir.
+
+   c. Eğer node'un connectedTo listesi boş değilse, bu durumda node düğümüne bağlı olan diğer düğümler üzerinde işlem yapılır. Her bir bağlı düğüm için aşağıdaki adımlar gerçekleştirilir:
+   
+      i. Eğer node'un leastFinish değeri, bağlı düğümün leastStart değerinden büyükse, node->leastFinish değeri n->leastStart değerine atanır. Bu, bağlı düğümün bitiş süresini gösterir.
+      
+      ii. node->leastStart değeri, node->leastFinish değerinden düğümün süresini çıkartarak hesaplanır.
+      
+      iii. Eğer node'un allegiances listesi boş değilse, bu listeye ait düğümler islemdekiler listesine eklenir.
+      
+9. İç döngü tamamlandığında, islemdekiler listesindeki tüm düğümlerin adlarını ekrana yazdırılır.
+10. Son olarak, tüm nodes listesindeki düğümler için aşağıdaki adımlar gerçekleştirilir:
+
+    a. Her düğümün slack değeri, node->leastFinish değerinden node->earliestFinish değerini çıkartarak hesaplanır. Bu, düğümün gecikme süresini gösterir.

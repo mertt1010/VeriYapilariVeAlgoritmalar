@@ -1,0 +1,51 @@
+Minimum Spanning Tree (MST): Ağırlıklı bir grafikteki tüm düğümleri birleştiren ve toplam ağırlığı en küçük olan ağacı temsil eder.En küçük maliyetli veya en hızlı yolun belirlenmesi gibi durumlarda kullanılır.
+
+MST, ağırlıklı bir grafik üzerinde bulunur ve aşağıdaki özelliklere sahiptir:
+
+1-)Tüm düğümleri birleştirir: MST, grafikteki tüm düğümleri içermesi gereken bir ağaçtır. Bu nedenle, MST'de her düğüm en az bir kez yer alır.
+
+2-)Döngü içermez: MST, döngü içermeyen bir ağaçtır. Yani, herhangi bir düğümü birleştiren yollar arasında döngü bulunmaz.
+
+3-)Toplam ağırlık en küçüktür: MST, grafikteki tüm kenarları kullanarak oluşturulan ağaçlardan toplam ağırlığı en küçük olanını temsil eder. Yani, MST'nin tüm kenarlarının ağırlıklarının toplamı, diğer ağaçlardan daha küçüktür.
+
+
+(SPCT): SPCT, Shortest Possible Completion Time'ın kısaltmasıdır. Bu, ev projesinin başlangıcından sonuna kadar olan en kısa tamamlanma süresini ifade eder. Bu süre, projenin tüm faaliyetlerinin ve bu faaliyetler arasındaki bağımlılıkların dikkate alındığı bir zaman çizelgesi üzerinde hesaplanır. SPCT, grafiğin başından sonuna kadar olan en uzun yol üzerindeki ağırlıkların toplamını temsil eder.
+SPCT, projenin tüm faaliyetlerinin ve bu faaliyetler arasındaki bağımlılıkların dikkate alındığı bir zaman çizelgesi üzerinde hesaplanır. Başlangıç ve bitiş tarihleri, faaliyetlerin süreleri ve bağımlılıkları kullanılarak belirlenir. SPCT, projenin en hızlı şekilde tamamlanabileceği tahmini süreyi sağlar.
+Avantajları:
+1-)Planlama ve zaman yönetimi
+2-)Kritik yolların belirlenmesi
+Dezavantajları:
+1-)Kesinlik olmayabilir
+2-)Kaynakların sınırlamaları
+3-)Proje karmaşıklığı
+
+
+Her bir faaliyet için en erken başlangıç zamanı (EST): EST, Earliest Start Time'ın kısaltmasıdır. Bu, her bir faaliyetin başlayabileceği en erken zamandır. EST, faaliyetin tamamlanması için gereken sürelerin ve bu faaliyetin öncesinde tamamlanması gereken diğer faaliyetlerin dikkate alındığı bir zaman çizelgesi üzerinde hesaplanır. EST, maksimum yayılan ağaçtaki ağırlıkların (weights) toplamını temsil eder. Bu, faaliyetin başlama zamanını belirler.
+Avantajları:
+1-)Planlama ve zaman yönetimi
+2-)Faaliyetler arasındaki bağımlılıkların göz önünde bulundurulması
+3-)Kritik yolun belirlenmesi
+Dezavantajları:
+1-)Kaynakların sınırlamaları
+2-)Beklenmedik gecikmeler
+3-)Esneklik eksikliği
+
+
+
+
+Her bir faaliyet için en son başlangıç zamanı (LST): LST, projenin bitiş tarihine ulaşmak için faaliyetlerin en son başlama zamanlarını hesaplar. Faaliyetler arasındaki bağımlılıklar, süreler ve projenin bitiş tarihi dikkate alınarak LST hesaplanır. LST, projenin bitiş tarihini etkilemeden her bir faaliyetin ne zaman başlayabileceğini gösterir.
+Avantajları:
+1-)Bitiş tarihini kontrol etme
+2-)Kritik yolun belirlenmesi
+3-)Esneklik sağlama
+Dezavantajları:
+1-)Kaynakların sınırlamaları
+2-)Beklenmedik gecikmeler
+
+
+
+
+Projenin kritik yolu: Kritik yol, projenin tamamlanması için en kritik olan ve zaman çizelgesini belirleyen yoldur. Kritik yol, maksimum yayılan ağaçtan oluşan alt grafiktir. Bu yol üzerindeki herhangi bir faaliyetin gecikmesi, projenin tamamlanma süresinin gecikmesine neden olur. Kritik yol, projenin en kritik adımlarını ve kısıtlamalarını belirlemek için kullanılır. Diğer tüm yollar, kritik yol üzerinde yapılan değişikliklere duyarsızdır ve projenin tamamlanma süresini etkilemez.
+
+
+

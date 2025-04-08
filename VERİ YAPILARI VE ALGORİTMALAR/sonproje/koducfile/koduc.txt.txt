@@ -1,0 +1,11 @@
+Düğümler (Nodes):
+A 5
+B 3
+C 4
+D 2
+
+Kenarlar (Edges):
+B A
+C A
+D B
+D C

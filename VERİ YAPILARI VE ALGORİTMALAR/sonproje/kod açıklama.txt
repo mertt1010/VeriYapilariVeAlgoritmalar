@@ -1,0 +1,81 @@
+struct Node: Her bir düğümün (faaliyetin) bilgilerini tutmak için kullanılan yapıdır. 
+id düğümün kimliğini ,duration düğümün süresini ve edges düğüme bağlı olan kenarların listesini içerir.
+
+vector<Node> graph: Grafın düğümlerini ve kenarlarını tutmak için kullanılan vektördür. Her bir düğüm, Node yapısıyla temsil edilir.
+
+vector<int> indegree: Her bir düğümün gelen kenar sayısını tutan vektördür. Bu vektör, topolojik sıralama ve hesaplamalar için kullanılır.
+
+vector<int> earliestStart: Her bir düğümün en erken başlama zamanını tutan vektördür. Bu vektör, her bir düğümün başlama zamanını hesaplamak için kullanılır.
+
+vector<int> latestStart: Her bir düğümün en son başlama zamanını tutan vektördür. Bu vektör, her bir düğümün en son başlama zamanını hesaplamak için kullanılır.
+
+calculateInDegree(): Düğümlerin gelen kenar sayılarını hesaplayan fonksiyondur. Bu fonksiyon, graph vektöründeki her bir düğümün kenarlarını tarayarak indegree vektörünü günceller.
+
+calculateEarliestStart(): Her bir düğümün en erken başlama zamanını hesaplayan fonksiyondur. Bu fonksiyon, grafın başlangıç düğümlerinden başlayarak ilerleyen bir tarama yapar ve her bir düğümün en erken başlama zamanını hesaplar.
+
+calculateLatestStart(): Her bir düğümün en son başlama zamanını hesaplayan fonksiyondur. Bu fonksiyon, grafın bitiş düğümünden başlayarak geriye doğru ilerleyen bir tarama yapar ve her bir düğümün en son başlama zamanını hesaplar.
+
+ifstream inputFile("graph.txt");: "graph.txt" adlı dosyayı okumak için bir giriş dosya akışı oluşturur.
+-----------------------------------------
+graph.resize(numNodes); indegree.resize(numNodes); earliestStart.resize(numNodes); latestStart.resize(numNodes);: graph, indegree, earliestStart ve latestStart vektörlerini gerekli boyutlara ayarlar.
+Dosyadan düğümlerin ve kenarların bilgilerini okur ve graph vektörünü oluşturur.
+-----------------------------------------
+
+                  
+
+calculateInDegree(), calculateEarliestStart() ve calculateLatestStart() fonksiyonlarını çağırarak aşağıdaki hesaplamaları yapar.
+
+---------------------------------------------------------------------------------------------------
+calculateInDegree() fonksiyonu, graf içerisindeki düğümlerin gelen kenarlarının sayısını hesaplamak için kullanılır. Bu fonksiyon, graph vektöründe bulunan her bir düğümü tarar ve her bir düğümün kenarlarını gözlemleyerek indegree vektörünü günceller.
+
+İşleyiş şu şekildedir:
+
+for (const auto& node : graph): graph vektöründeki her bir düğümü sırayla döngüyle tarar.
+for (const auto& edge : node.edges): Her bir düğümün kenarlarını sırayla döngüyle tarar.
+indegree[edge]++;: Kenarın hedef düğümünün indeksini kullanarak indegree vektöründe ilgili düğümün gelen kenar sayısını bir artırır.
+Bu işlem sonucunda indegree vektöründe her düğümün gelen kenar sayısı güncellenir. Bu bilgi, grafın topolojik sıralama ve diğer hesaplamalar için kullanılabilir.
+
+------------------------------------------------------------------------------------------------------------------------------------
+
+calculateEarliestStart() fonksiyonu, her bir faaliyetin en erken başlangıç zamanını hesaplamak için kullanılır. Bu fonksiyon, graf üzerinde topolojik sıralama algoritmasını kullanarak faaliyetlerin en erken başlangıç zamanlarını belirler.
+
+İşleyiş şu şekildedir:
+
+queue<int> q;: Bir tamsayı kuyruğu oluşturulur.
+for (int i = 0; i < indegree.size(); i++): indegree vektöründeki her bir düğümün indeksini sırayla tarar.
+if (indegree[i] == 0): Eğer düğümün gelen kenar sayısı (indegree) sıfırsa, yani o düğüme giden herhangi bir kenar yoksa:
+q.push(i);: Düğümün indeksini kuyruğa ekler.
+earliestStart[i] = 0;: Düğümün en erken başlangıç zamanını 0 olarak ayarlar. Çünkü gelen kenarı olmayan bir düğümün en erken başlangıç zamanı 0'dır.
+Bu adımlar sonucunda, kuyruk içerisindeki düğümler en erken başlangıç zamanlarını belirlemek için kullanılır. Topolojik sıralama algoritmasına göre, bir düğümün en erken başlangıç zamanı, o düğüme gelen kenarlarla ilişkili düğümlerin en erken başlangıç zamanlarına dayanır. Kuyruk, gelen kenarı olmayan düğümlerle başlar ve bu düğümleri çıkararak diğer düğümleri işler. Her düğüm için en erken başlangıç zamanı, gelen kenarların en büyük en erken başlangıç zamanına bağlı olarak güncellenir.
+Bu fonksiyon, graf üzerindeki faaliyetlerin en erken başlangıç zamanlarını hesaplayarak proje yönetiminde planlama yapılmasına yardımcı olur.
+
+----------------------------------------------------------------------------------------------------------------------------
+
+calculateLatestStart() fonksiyonu, her bir faaliyetin en son başlangıç zamanını hesaplamak için kullanılır. Bu fonksiyon, graf üzerinde geriye doğru ilerleyerek faaliyetlerin en son başlangıç zamanlarını belirler.
+
+İşleyiş şu şekildedir:
+
+int lastNode = graph.size() - 1;: Son düğümün indeksini belirler.
+latestStart[lastNode] = earliestStart[lastNode];: Son düğümün en son başlangıç zamanını, en erken başlangıç zamanıyla aynı değere eşitler. Çünkü son düğümün en son başlangıç zamanı, en erken başlangıç zamanıdır.
+for (int i = lastNode - 1; i >= 0; i--): Son düğümden bir önceki düğümden başlayarak, graf üzerinde geriye doğru ilerler.
+for (const auto& edge : graph[i].edges): Her bir düğümün çıkış kenarları üzerinde döner.
+if (latestStart[edge] - graph[i].duration < latestStart[i]): Eğer çıkış kenarının hedef düğümünün en son başlangıç zamanından, mevcut düğümün süresini çıkararak elde edilen değer, mevcut düğümün en son başlangıç zamanından küçükse:
+latestStart[i] = latestStart[edge] - graph[i].duration;: Mevcut düğümün en son başlangıç zamanını günceller. Çünkü bir düğümün en son başlangıç zamanı, çıkış kenarlarındaki hedef düğümlerin en son başlangıç zamanlarından kendi süresini çıkartarak belirlenir.
+Bu fonksiyon, graf üzerinde geriye doğru ilerleyerek faaliyetlerin en son başlangıç zamanlarını hesaplayarak projenin bitiş tarihini belirler. En son başlangıç zamanı, proje bitiş tarihine kadar olan süreyi temsil eder.
+
+--------------------------------------------------------------------------------------------------------------
+
+WHİLE DÖNGÜSÜ:
+**************
+Bu döngü, "calculateEarliestStart()" fonksiyonunun içinde yer almaktadır ve en erken başlangıç zamanlarını hesaplamak için kullanılır. İşleyiş şu şekildedir:
+
+while (!q.empty()): Kuyruk boş olmadığı sürece devam eden bir döngü oluşturur. Kuyruk, başlangıç düğümlerini içerir.
+int current = q.front();: Kuyruğun önündeki düğümü alır ve "current" değişkenine atar.
+q.pop();: Kuyruğun önündeki düğümü çıkarır, yani işlenen düğümü kuyruktan çıkarır.
+for (const auto& edge : graph[current].edges): İşlenen düğümün çıkış kenarları üzerinde döner.
+if (earliestStart[edge] < earliestStart[current] + graph[current].duration): Eğer çıkış kenarının hedef düğümünün en erken başlangıç zamanı, mevcut düğümün en erken başlangıç zamanına mevcut düğümün süresini eklediğimizden daha küçükse:
+earliestStart[edge] = earliestStart[current] + graph[current].duration;: Hedef düğümün en erken başlangıç zamanını güncelleriz. Bu, mevcut düğüm üzerinden hedef düğüme giden bir yolun, daha önce hesaplanan en erken başlangıç zamanından daha uzun süreceğini gösterir.
+indegree[edge]--;: Hedef düğümün giriş indeksini azaltırız. Bu, hedef düğüme giden bir kenarın işlendiğini ve bu kenarın daha fazla hesaplama yapılmasına gerek olmadığını gösterir.
+if (indegree[edge] == 0): Hedef düğümün giriş indeksi sıfırsa, yani tüm giriş kenarları işlendiyse:
+q.push(edge);: Hedef düğümü kuyruğa ekleriz. Bu, hedef düğümün en erken başlangıç zamanının hesaplanması için işleneceğini gösterir.
+Bu döngü, graf üzerindeki düğümleri ve kenarları işleyerek her bir düğümün en erken başlangıç zamanını hesaplar. Başlangıç düğümlerinden başlayarak, her bir düğümün en erken başlangıç zamanı, giriş kenarlarındaki düğümlerin en erken başlangıç zamanlarına kendi süresini ekleyerek belirlenir. Bu sayede, proje süresini hesaplamak için gereken minimum zamanları belirleriz.
